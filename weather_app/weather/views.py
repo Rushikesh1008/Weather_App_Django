@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import requests
 from .models import City
 from .forms import CityForm
@@ -17,13 +17,25 @@ def home(request):
 
     for city in cities:
         r = requests.get(url.format(city)).json()
-        city_weather = {
-            'city' : r['name'],
-            'temperature' : r['main']['temp'],
-            'description' : r['weather'][0]['description'],
-            'icon' : r['weather'][0]['icon']
-        }
-        weather_data.append(city_weather)
+        # Handling KeyError
+        try:
+            city_weather = {
+                'city' : r['name'],
+                'temperature' : r['main']['temp'],
+                'description' : r['weather'][0]['description'],
+                'icon' : r['weather'][0]['icon']
+            }
+            weather_data.append(city_weather)
+        except:
+            obj = City.objects.latest('name')
+            obj.delete()
+            continue
 
     context = {'weather_data':weather_data,'form':form}
     return render(request,'weather/home.html',context)
+
+def reset(request):
+    for obj in City.objects.all():
+        obj.delete()
+
+    return redirect('../')

@@ -14,6 +14,7 @@
       {{form.name}}
       <button class="btn btn-primary" type="submit" name="button">Add City</button>
     </form>
+    <a class="btn btn-danger" href="reset/">Reset</a>
     {% for city_weather in weather_data %}
       <h2>Today's weather in {{city_weather.city}}</h2>
       <p>Temperature : {{city_weather.temperature}}</p>
