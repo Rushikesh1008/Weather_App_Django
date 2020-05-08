@@ -9,6 +9,11 @@
   <body>
     <div class="container text-center">
     <h1 class="display-4 mb-4">Hey! This is my weather App.</h1>
+    <form class="form-group" method="post">
+      {% csrf_token %}
+      {{form.name}}
+      <button class="btn btn-primary" type="submit" name="button">Add City</button>
+    </form>
     {% for city_weather in weather_data %}
       <h2>Today's weather in {{city_weather.city}}</h2>
       <p>Temperature : {{city_weather.temperature}}</p>
