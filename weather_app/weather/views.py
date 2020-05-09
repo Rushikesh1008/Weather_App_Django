@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 import requests
 from .models import City
-from .forms import CityForm
+from .forms import CityForm,feedback_form
 # Create your views here.
 
 def home(request):
@@ -11,9 +11,15 @@ def home(request):
 
     if request.method == 'POST':
         form = CityForm(request.POST)
-        form.save()
+        form1 = feedback_form(request.POST)
+        if form1.is_valid():
+            form1.save()
+            return render(request,'weather/thanks.html')
+        else:
+            form.save()
 
     form = CityForm()
+    form1 = feedback_form()
 
     for city in cities:
         r = requests.get(url.format(city)).json()
@@ -22,6 +28,10 @@ def home(request):
             city_weather = {
                 'city' : r['name'],
                 'temperature' : r['main']['temp'],
+                'humidity' : r['main']['humidity'],
+                'wind':r['wind']['speed'],
+                'pressure' : r['main']['pressure'],
+                'clouds':r['clouds']['all'],
                 'description' : r['weather'][0]['description'],
                 'icon' : r['weather'][0]['icon']
             }
@@ -31,7 +41,7 @@ def home(request):
             obj.delete()
             continue
 
-    context = {'weather_data':weather_data,'form':form}
+    context = {'weather_data':weather_data,'form':form,'form1':form1}
     return render(request,'weather/home.html',context)
 
 def reset(request):
@@ -39,3 +49,9 @@ def reset(request):
         obj.delete()
 
     return redirect('../')
+
+def about(request):
+    return render(request,'weather/about.html')
+
+def contact(request):
+    return render(request,'weather/contact.html')
