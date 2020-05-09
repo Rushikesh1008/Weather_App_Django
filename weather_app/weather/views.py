@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 import requests
 from .models import City
-from .forms import CityForm,feedback_form
+from .forms import CityForm,feedback_form,contact_form
 # Create your views here.
 
 def home(request):
@@ -54,4 +54,12 @@ def about(request):
     return render(request,'weather/about.html')
 
 def contact(request):
-    return render(request,'weather/contact.html')
+
+    if request.method == 'POST':
+        form = contact_form(request.POST)
+        form.save()
+        return render(request,'weather/thanks.html')
+
+    form = contact_form()
+    context = {'form':form}
+    return render(request,'weather/contact.html',context)
