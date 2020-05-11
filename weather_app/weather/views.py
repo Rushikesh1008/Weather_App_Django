@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.forms import ValidationError
 import requests
 from .models import City
 from .forms import CityForm,feedback_form,contact_form
@@ -8,15 +9,18 @@ def home(request):
     url = 'https://api.openweathermap.org/data/2.5/weather?q={}&units=metric&appid=281ecae76cd9457c2db90d66a9289a2a'
     cities = City.objects.all()
     weather_data = []
+    error = '';
 
     if request.method == 'POST':
         form = CityForm(request.POST)
         form1 = feedback_form(request.POST)
         if form1.is_valid():
-            form1.save()
             return render(request,'weather/thanks.html')
         else:
-            form.save()
+            try:
+                form.save()
+            except:
+                error = 'error'
 
     form = CityForm()
     form1 = feedback_form()
@@ -41,7 +45,7 @@ def home(request):
             obj.delete()
             continue
 
-    context = {'weather_data':weather_data,'form':form,'form1':form1}
+    context = {'weather_data':weather_data,'form':form,'form1':form1,'error':error}
     return render(request,'weather/home.html',context)
 
 def reset(request):
