@@ -10,6 +10,7 @@ def home(request):
     cities = City.objects.all()
     weather_data = []
     error = '';
+    invalid_city = ''
 
     if request.method == 'POST':
         form = CityForm(request.POST)
@@ -43,9 +44,10 @@ def home(request):
         except:
             obj = City.objects.latest('name')
             obj.delete()
+            invalid_city = 'yes'
             continue
 
-    context = {'weather_data':weather_data,'form':form,'form1':form1,'error':error}
+    context = {'weather_data':weather_data,'form':form,'form1':form1,'error':error,'invalid_city':invalid_city}
     return render(request,'weather/home.html',context)
 
 def reset(request):
