@@ -8,11 +8,12 @@ Source code of the project
 To run this project follow these steps
 
 ```
+user:~ pip3 install virtualenv
 user:~ git clone https://github.com/Rushikesh1008/Weather_App_Django.git
 user:~ cd Weather_App_Django
-user:~ pip3 install -r requirements.txt
 user:~ virtualenv env
 user:~ env\scripts\activate                    #(Windows) for MAC/Linux -> source env/bin/activate
+user:~ pip3 install -r requirements.txt
 user:~ python3 manage.py makemigrations
 user:~ python3 manage.py migrate
 user:~ python3 manage.py runserver             #It will deploy website on your localhost https://127.0.0.1:8000
