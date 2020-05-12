@@ -14,6 +14,7 @@ user:~ cd Weather_App_Django
 user:~ virtualenv env
 user:~ env\scripts\activate                    #(Windows) for MAC/Linux -> source env/bin/activate
 user:~ pip3 install -r requirements.txt
+user:~ cd weather_app
 user:~ python3 manage.py makemigrations
 user:~ python3 manage.py migrate
 user:~ python3 manage.py runserver             #It will deploy website on your localhost https://127.0.0.1:8000
