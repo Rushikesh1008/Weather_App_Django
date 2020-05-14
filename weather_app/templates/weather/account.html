@@ -1,0 +1,53 @@
+{%  extends "weather/base.html" %}
+{% load crispy_forms_tags %}
+{% block title%}
+  My Account
+{%endblock%}
+{% block content %}
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+  <div class="container">
+    <a href="/" class="navbar-brand">Django Weather App</a>
+    <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item">
+          <a href="/about" class="nav-link">About</a>
+        </li>
+        <li class="nav-item">
+          <a href="/contact" class="nav-link">Contact</a>
+        </li>
+        {% if request.user.is_authenticated %}
+        <li class="nav-item active">
+          <a href="/account" class="nav-link">My Account</a>
+        </li>
+        <li class="nav-item">
+          <a href="/logout" class="nav-link">Logout</a>
+        {% else %}
+        <li class="nav-item">
+          <a href="/login" class="nav-link">Login</a>
+        </li>
+        <li class="nav-item">
+          <a href="/signup" class="nav-link">Signup</a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<section id = "account-section" class="text-center py-5 bg-light">
+  <br>
+  <div class="container">
+    <i class="fas fa-exclamation-triangle fa-7x"></i>
+    <h1 class="pt-5 font-weight-bold" style="font-family:Montserrat;font-size:2.5rem;">THIS SECTION IS UNDER MAINTAINANCE</h1>
+    <h2 class="pt-3 pb-5 lead" style="font-size:2rem;">Sorry for the inconvenience</h2>
+  </div>
+  <br>
+</section>
+
+{% endblock %}
