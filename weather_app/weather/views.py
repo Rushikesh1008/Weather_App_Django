@@ -28,6 +28,7 @@ def home(request):
     if request.method == 'POST':
         form1 = feedback_form(request.POST)
         if form1.is_valid():
+            form1.save()
             return render(request,'weather/thanks.html')
         else:
             name = request.POST['location']
