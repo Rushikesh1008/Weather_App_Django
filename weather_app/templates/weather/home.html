@@ -39,13 +39,15 @@
     </div>
   </div>
 </nav>
-{% if message %}
+{% if messages %}
+{% for message in messages %}
 <div class="alert alert-light alert-dismissible mb-0 text-center fade show" role="alert">
 <strong>{{message}}</strong>&ensp;
 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
   <span aria-hidden="true">&times;</span>
 </button>
 </div>
+{% endfor %}
 {% endif %}
 <section id="showcase">
   <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -131,8 +133,11 @@
   {% endif %}
 <form id="add_city" class="form-group" method="post">
   {% csrf_token %}
-  {{form.name}}
-  <button class="btn btn-success" type="submit" name="button">Add City</button> <a class="btn btn-danger display-inline mx-2" href="reset/">Reset</a>
+  <div class="form-group">
+    <input class="form-control w-50 mx-auto" placeholder="Enter a location" type="text" name="location">
+  </div>
+  <button class="btn btn-success px-5 border border-light" type="submit" name="button"><i class="fas fa-map-marker-alt mx-2"></i>Add City</button>
+  <a class="btn btn-danger px-5 display-inline mx-2 border-light" href="reset/"><i class="fas fa-trash-alt mx-2"></i>Reset</a>
 </form>
 <div class="row">
   {% for city_weather in weather_data %}

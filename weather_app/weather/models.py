@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class CityField(models.CharField):
@@ -6,8 +7,8 @@ class CityField(models.CharField):
         return value.capitalize()
 
 class City(models.Model):
-    name = CityField(max_length = 25,unique=True)
-
+    name = CityField(max_length = 25)
+    user = models.ForeignKey(User, on_delete = models.CASCADE)
     def __str__(self):
         return self.name
 

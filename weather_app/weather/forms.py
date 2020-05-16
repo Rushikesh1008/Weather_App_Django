@@ -38,11 +38,6 @@ class UserRegisterForm(UserCreationForm):
             raise forms.ValidationError("This email is already being used.")
         return email
 
-class CityForm(ModelForm):
-    class Meta:
-        model = City
-        fields = ['name']
-
 class feedback_form(ModelForm):
     name = forms.CharField(widget=forms.TextInput(
         attrs={
