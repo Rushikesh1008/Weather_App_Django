@@ -117,7 +117,7 @@ def account_view(request):
     return render(request,'weather/account.html'    )
 
 def reset(request):
-    for obj in City.objects.all():
+    for obj in City.objects.filter(user=request.user):
         obj.delete()
 
     return redirect('../')
